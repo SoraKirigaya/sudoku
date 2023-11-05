@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SudokuBox(modifier: Modifier) {
+fun SudokuBox(modifier: Modifier, name: Int) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -21,7 +21,7 @@ fun SudokuBox(modifier: Modifier) {
             .border(color = Color.Black, width = 2.dp)
     ) {
         Text(
-            "1",
+            name.toString(),
             textAlign = TextAlign.Center,
             fontSize = 25.sp
         )

@@ -3,14 +3,15 @@ package com.example.sudoku
 import android.util.Log
 import androidx.compose.runtime.Composable
 
+var sudokuArray = mutableListOf(
+    intArrayOf(0, 0, 0, 0),
+    intArrayOf(0, 0, 0, 0),
+    intArrayOf(0, 0, 0, 0),
+    intArrayOf(0, 0, 0, 0)
+)
+
 @Composable
 fun sudokuLogic() {
-    var sudokuArray = mutableListOf(
-        intArrayOf(0, 0, 0, 0),
-        intArrayOf(0, 0, 0, 0),
-        intArrayOf(0, 0, 0, 0),
-        intArrayOf(0, 0, 0, 0)
-    )
     //Rows
     var pullRow1 = mutableListOf(1, 2, 3, 4)
     var pullRow2 = mutableListOf(1, 2, 3, 4)
@@ -65,7 +66,7 @@ fun sudokuLogic() {
         }
     }
     for (i in sudokuArray) {
-        val rowString = i.joinToString (" ")
+        val rowString = i.joinToString(" ")
         Log.d("sudokuArr: ", rowString)
     }
 }

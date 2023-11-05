@@ -8,8 +8,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.sudoku.sudokuArray
 import com.example.sudoku.sudokuLogic
 import com.example.sudoku.ui.theme.LightBlue
 import com.example.sudoku.ui.theme.LightGreen
@@ -55,29 +59,64 @@ fun Sudoku(
             Spacer(Modifier.size(40.dp))
             Column(verticalArrangement = Arrangement.spacedBy(buttonSpacing)) {
                 Row(horizontalArrangement = Arrangement.spacedBy(buttonSpacing)) {
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
+                    SudokuBox(modifier, name = sudokuArray[0][0])
+                    SudokuBox(modifier, name = sudokuArray[0][1])
+                    SudokuBox(modifier, name = sudokuArray[0][2])
+                    SudokuBox(modifier, name = sudokuArray[0][3])
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(buttonSpacing)) {
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
+                    SudokuBox(modifier, name = sudokuArray[1][0])
+                    SudokuBox(modifier, name = sudokuArray[1][1])
+                    SudokuBox(modifier, name = sudokuArray[1][2])
+                    SudokuBox(modifier, name = sudokuArray[1][3])
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(buttonSpacing)) {
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
+                    SudokuBox(modifier, name = sudokuArray[2][0])
+                    SudokuBox(modifier, name = sudokuArray[2][1])
+                    SudokuBox(modifier, name = sudokuArray[2][2])
+                    SudokuBox(modifier, name = sudokuArray[2][3])
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(buttonSpacing)) {
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
-                    SudokuBox(modifier)
+                    SudokuBox(modifier, name = sudokuArray[3][0])
+                    SudokuBox(modifier, name = sudokuArray[3][1])
+                    SudokuBox(modifier, name = sudokuArray[3][2])
+                    SudokuBox(modifier, name = sudokuArray[3][3])
                 }
+            }
+            Button(onClick = {}) {
+                Text("Jawaban")
+            }
+            Box(
+                modifier = Modifier
+                    .then(modifier)
+                    .size(250.dp)
+                    .border(color = Color.Black, width = 2.dp), contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(40.dp), verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    for (i in sudokuArray.indices) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            for (j in sudokuArray[i].indices) {
+                                Text(
+                                    sudokuArray[i][j].toString(),
+                                    textAlign = TextAlign.Center,
+                                    fontSize = 25.sp
+                                )
+                            }
+                        }
+                    }
+                }
+//                    Text(
+//                        name.toString(),
+//                        textAlign = TextAlign.Center,
+//                        fontSize = 25.sp
+//                    )
             }
         }
     }
