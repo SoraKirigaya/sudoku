@@ -28,41 +28,47 @@ fun sudokuLogic() {
     var pullRow11 = mutableListOf(1, 2, 3, 4)
     var pullRow12 = mutableListOf(1, 2, 3, 4)
 
+    val rows = arrayOf(pullRow1, pullRow2, pullRow3, pullRow4)
+    val columns = arrayOf(pullRow5, pullRow6, pullRow7, pullRow8)
+    val boxes = arrayOf(pullRow9, pullRow10, pullRow11, pullRow12)
+
     for (i in sudokuArray.indices) {
         for (j in sudokuArray[i].indices) {
-            if (i == 0 && j == 0) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow5, pullRow9)
-            } else if (i == 0 && j == 1) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow6, pullRow9)
-            } else if (i == 0 && j == 2) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow7, pullRow10)
-            } else if (i == 0 && j == 3) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow8, pullRow10)
-            } else if (i == 1 && j == 0) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow5, pullRow9)
-            } else if (i == 1 && j == 1) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow6, pullRow9)
-            } else if (i == 1 && j == 2) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow7, pullRow10)
-            } else if (i == 1 && j == 3) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow8, pullRow10)
-            } else if (i == 2 && j == 0) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow5, pullRow11)
-            } else if (i == 2 && j == 1) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow6, pullRow11)
-            } else if (i == 2 && j == 2) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow7, pullRow12)
-            } else if (i == 2 && j == 3) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow8, pullRow12)
-            } else if (i == 3 && j == 0) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow5, pullRow11)
-            } else if (i == 3 && j == 1) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow6, pullRow11)
-            } else if (i == 3 && j == 2) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow7, pullRow12)
-            } else if (i == 3 && j == 3) {
-                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow8, pullRow12)
-            }
+            val index = (i * sudokuArray[i].size + j) % boxes.size
+            sudokuArray[i][j] = generateRandomNumber(rows[i], columns[j], boxes[index])
+//            if (i == 0 && j == 0) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow5, pullRow9)
+//            } else if (i == 0 && j == 1) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow6, pullRow9)
+//            } else if (i == 0 && j == 2) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow7, pullRow10)
+//            } else if (i == 0 && j == 3) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow8, pullRow10)
+//            } else if (i == 1 && j == 0) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow5, pullRow9)
+//            } else if (i == 1 && j == 1) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow6, pullRow9)
+//            } else if (i == 1 && j == 2) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow7, pullRow10)
+//            } else if (i == 1 && j == 3) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow8, pullRow10)
+//            } else if (i == 2 && j == 0) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow5, pullRow11)
+//            } else if (i == 2 && j == 1) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow6, pullRow11)
+//            } else if (i == 2 && j == 2) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow7, pullRow12)
+//            } else if (i == 2 && j == 3) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow8, pullRow12)
+//            } else if (i == 3 && j == 0) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow5, pullRow11)
+//            } else if (i == 3 && j == 1) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow6, pullRow11)
+//            } else if (i == 3 && j == 2) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow7, pullRow12)
+//            } else if (i == 3 && j == 3) {
+//                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow8, pullRow12)
+//            }
         }
     }
     for (i in sudokuArray) {
