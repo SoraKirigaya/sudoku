@@ -13,20 +13,20 @@ var sudokuArray = mutableListOf(
 @Composable
 fun sudokuLogic() {
     //Rows
-    var pullRow1 = mutableListOf(1, 2, 3, 4)
-    var pullRow2 = mutableListOf(1, 2, 3, 4)
-    var pullRow3 = mutableListOf(1, 2, 3, 4)
-    var pullRow4 = mutableListOf(1, 2, 3, 4)
+    val pullRow1 = mutableListOf(1, 2, 3, 4)
+    val pullRow2 = mutableListOf(1, 2, 3, 4)
+    val pullRow3 = mutableListOf(1, 2, 3, 4)
+    val pullRow4 = mutableListOf(1, 2, 3, 4)
     //Columns
-    var pullRow5 = mutableListOf(1, 2, 3, 4)
-    var pullRow6 = mutableListOf(1, 2, 3, 4)
-    var pullRow7 = mutableListOf(1, 2, 3, 4)
-    var pullRow8 = mutableListOf(1, 2, 3, 4)
+    val pullRow5 = mutableListOf(1, 2, 3, 4)
+    val pullRow6 = mutableListOf(1, 2, 3, 4)
+    val pullRow7 = mutableListOf(1, 2, 3, 4)
+    val pullRow8 = mutableListOf(1, 2, 3, 4)
     //Box
-    var pullRow9 = mutableListOf(1, 2, 3, 4)
-    var pullRow10 = mutableListOf(1, 2, 3, 4)
-    var pullRow11 = mutableListOf(1, 2, 3, 4)
-    var pullRow12 = mutableListOf(1, 2, 3, 4)
+    val pullRow9 = mutableListOf(1, 2, 3, 4)
+    val pullRow10 = mutableListOf(1, 2, 3, 4)
+    val pullRow11 = mutableListOf(1, 2, 3, 4)
+    val pullRow12 = mutableListOf(1, 2, 3, 4)
 
     val rows = arrayOf(pullRow1, pullRow2, pullRow3, pullRow4)
     val columns = arrayOf(pullRow5, pullRow6, pullRow7, pullRow8)
@@ -35,40 +35,9 @@ fun sudokuLogic() {
     for (i in sudokuArray.indices) {
         for (j in sudokuArray[i].indices) {
             val index = (i * sudokuArray[i].size + j) % boxes.size
-            sudokuArray[i][j] = generateRandomNumber(rows[i], columns[j], boxes[index])
-//            if (i == 0 && j == 0) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow5, pullRow9)
-//            } else if (i == 0 && j == 1) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow6, pullRow9)
-//            } else if (i == 0 && j == 2) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow7, pullRow10)
-//            } else if (i == 0 && j == 3) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow1, pullRow8, pullRow10)
-//            } else if (i == 1 && j == 0) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow5, pullRow9)
-//            } else if (i == 1 && j == 1) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow6, pullRow9)
-//            } else if (i == 1 && j == 2) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow7, pullRow10)
-//            } else if (i == 1 && j == 3) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow2, pullRow8, pullRow10)
-//            } else if (i == 2 && j == 0) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow5, pullRow11)
-//            } else if (i == 2 && j == 1) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow6, pullRow11)
-//            } else if (i == 2 && j == 2) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow7, pullRow12)
-//            } else if (i == 2 && j == 3) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow3, pullRow8, pullRow12)
-//            } else if (i == 3 && j == 0) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow5, pullRow11)
-//            } else if (i == 3 && j == 1) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow6, pullRow11)
-//            } else if (i == 3 && j == 2) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow7, pullRow12)
-//            } else if (i == 3 && j == 3) {
-//                sudokuArray[i][j] = generateRandomNumber(pullRow4, pullRow8, pullRow12)
-//            }
+            val generatedRandomNumber = generateRandomNumber(rows[i], columns[j], boxes[index])
+            removeNumber(generatedRandomNumber, rows[i], columns[j], boxes[index])
+            sudokuArray[i][j] = generatedRandomNumber
         }
     }
     for (i in sudokuArray) {
@@ -82,24 +51,28 @@ fun generateRandomNumber(
     secondPullRow: MutableList<Int>,
     thirdPullRow: MutableList<Int>
 ): Int {
-    var availableGeneratedNumber = mutableListOf<Int>()
-    for (i in firstPullRow.indices) {
-        for (j in secondPullRow.indices) {
-            for (k in thirdPullRow.indices) {
-                if (firstPullRow[i] == secondPullRow[j] && secondPullRow[j] == thirdPullRow[k]) {
-                    availableGeneratedNumber.add(firstPullRow[i])
-                    Log.d("available number: ", availableGeneratedNumber.toString())
-                }
-            }
-        }
-    }
-    var generatedNumber = availableGeneratedNumber.random()
-    Log.d("generatedNumber: ", generatedNumber.toString())
-    firstPullRow.remove(generatedNumber)
-    Log.d("firstPullRow: ", firstPullRow.toString())
-    secondPullRow.remove(generatedNumber)
-    Log.d("secondPullRow: ", secondPullRow.toString())
-    thirdPullRow.remove(generatedNumber)
-    Log.d("thirdPullRow: ", thirdPullRow.toString())
-    return generatedNumber
+    Log.v("sudokulogic: ", "firstPullRow: $firstPullRow")
+    Log.v("sudokulogic: ", "secondPullRow: $secondPullRow")
+
+    Log.v("sudokulogic: ", "firstPullRow: " + firstPullRow.intersect(secondPullRow.toSet()))
+    val availableGeneratedNumber = firstPullRow.intersect(secondPullRow.toSet())
+        .intersect(thirdPullRow.toSet())
+
+    return availableGeneratedNumber.random()
 }
+
+fun removeNumber(
+    generatedNumber: Int,
+    firstPullRow: MutableList<Int>,
+    secondPullRow: MutableList<Int>,
+    thirdPullRow: MutableList<Int>
+) {
+    Log.v("sudokulogic: ", generatedNumber.toString())
+    Log.v("sudokulogic: ", firstPullRow.toString())
+    Log.v("sudokulogic: ", secondPullRow.toString())
+    Log.v("sudokulogic: ", thirdPullRow.toString())
+    firstPullRow.remove(generatedNumber)
+    secondPullRow.remove(generatedNumber)
+    thirdPullRow.remove(generatedNumber)
+}
+
