@@ -16,6 +16,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,8 +41,10 @@ import kotlin.random.Random
 fun Sudoku(
     modifier: Modifier = Modifier,
     buttonSpacing: Dp = 8.dp,
-//    onAction: (SudokuAction) -> Unit
 ) {
+    var isVisible by remember {
+        mutableStateOf(false)
+    }
     sudokuLogic()
     Box(
         modifier = modifier
@@ -83,7 +89,7 @@ fun Sudoku(
                     SudokuBox(modifier, name = sudokuArray[3][3])
                 }
             }
-            Button(onClick = {}) {
+            Button(onClick = { isVisible = !isVisible }) {
                 Text("Jawaban")
             }
             Box(
@@ -92,31 +98,28 @@ fun Sudoku(
                     .size(250.dp)
                     .border(color = Color.Black, width = 2.dp), contentAlignment = Alignment.Center
             ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(40.dp), verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    for (i in sudokuArray.indices) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            for (j in sudokuArray[i].indices) {
-                                Text(
-                                    sudokuArray[i][j].toString(),
-                                    textAlign = TextAlign.Center,
-                                    fontSize = 25.sp
-                                )
+                if (isVisible) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(40.dp), verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        for (i in sudokuArray.indices) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                for (j in sudokuArray[i].indices) {
+                                    Text(
+                                        sudokuArray[i][j].toString(),
+                                        textAlign = TextAlign.Center,
+                                        fontSize = 25.sp
+                                    )
+                                }
                             }
                         }
                     }
                 }
-//                    Text(
-//                        name.toString(),
-//                        textAlign = TextAlign.Center,
-//                        fontSize = 25.sp
-//                    )
             }
         }
     }

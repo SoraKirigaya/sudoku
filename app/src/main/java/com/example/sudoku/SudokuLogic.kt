@@ -2,6 +2,7 @@ package com.example.sudoku
 
 import android.util.Log
 import androidx.compose.runtime.Composable
+import java.lang.Exception
 
 var sudokuArray = mutableListOf(
     intArrayOf(0, 0, 0, 0),
@@ -34,15 +35,21 @@ fun sudokuLogic() {
 
     for (i in sudokuArray.indices) {
         for (j in sudokuArray[i].indices) {
-            val index = (i * sudokuArray[i].size + j) % boxes.size
+            var index = 0
+            if (i <= 1 && j <= 1) {
+                index = 0
+            } else if (i <= 1 && j >= 2) {
+                index = 1
+            } else if (i >= 2 && j <= 1) {
+                index = 2
+            } else if (i >= 2 && j >= 2) {
+                index = 3
+            }
+//            val index = (i * sudokuArray[i].size + j) % boxes.size
             val generatedRandomNumber = generateRandomNumber(rows[i], columns[j], boxes[index])
             removeNumber(generatedRandomNumber, rows[i], columns[j], boxes[index])
             sudokuArray[i][j] = generatedRandomNumber
         }
-    }
-    for (i in sudokuArray) {
-        val rowString = i.joinToString(" ")
-        Log.d("sudokuArr: ", rowString)
     }
 }
 
@@ -53,11 +60,11 @@ fun generateRandomNumber(
 ): Int {
     Log.v("sudokulogic: ", "firstPullRow: $firstPullRow")
     Log.v("sudokulogic: ", "secondPullRow: $secondPullRow")
+    Log.v("sudokulogic: ", "thirdPullRow: $thirdPullRow")
 
-    Log.v("sudokulogic: ", "firstPullRow: " + firstPullRow.intersect(secondPullRow.toSet()))
     val availableGeneratedNumber = firstPullRow.intersect(secondPullRow.toSet())
         .intersect(thirdPullRow.toSet())
-
+    Log.v("sudokulogic: ", "intersectedRow: $availableGeneratedNumber")
     return availableGeneratedNumber.random()
 }
 
@@ -67,10 +74,7 @@ fun removeNumber(
     secondPullRow: MutableList<Int>,
     thirdPullRow: MutableList<Int>
 ) {
-    Log.v("sudokulogic: ", generatedNumber.toString())
-    Log.v("sudokulogic: ", firstPullRow.toString())
-    Log.v("sudokulogic: ", secondPullRow.toString())
-    Log.v("sudokulogic: ", thirdPullRow.toString())
+    Log.v("sudokulogic: ", "generatedNumber: $generatedNumber")
     firstPullRow.remove(generatedNumber)
     secondPullRow.remove(generatedNumber)
     thirdPullRow.remove(generatedNumber)
